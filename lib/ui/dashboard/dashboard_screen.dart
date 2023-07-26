@@ -39,14 +39,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  auth.signOut().then((value) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SigninScreen(),
-                      ),
-                    );
-                  });
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Exit App"),
+                          titleTextStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 20),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  auth.signOut().then((value) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SigninScreen(),
+                                      ),
+                                    );
+                                  });
+                                },
+                                child: Text("Yes")),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("No")),
+                          ],
+                          content: Text("Are you sure to logout ?"),
+                        );
+                      });
                 },
                 icon: Icon(Icons.exit_to_app))
           ],

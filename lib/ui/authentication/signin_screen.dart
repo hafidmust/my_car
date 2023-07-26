@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:my_car/ui/authentication/signup_screen.dart';
 import 'package:my_car/ui/dashboard/dashboard_screen.dart';
 
+import '../../utils/utils.dart';
 import '../../widgets/round_button.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -37,6 +38,7 @@ class _SigninScreenState extends State<SigninScreen> {
             email: _emailcontroller.text.toString(),
             password: _passwordcontroller.text.toString())
         .then((value) {
+      toastMessage("Berhasil login");
       setState(() {
         loading = false;
       });
@@ -45,6 +47,11 @@ class _SigninScreenState extends State<SigninScreen> {
           MaterialPageRoute(
             builder: (context) => const DashboardScreen(),
           ));
+    }).onError((error, stackTrace) {
+      toastMessage(error.toString());
+      setState(() {
+        loading = false;
+      });
     });
   }
 

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_car/ui/authentication/signin_screen.dart';
+import 'package:my_car/utils/utils.dart';
 
 import '../../widgets/round_button.dart';
 
@@ -32,10 +33,12 @@ class _SignupScreenState extends State<SignupScreen> {
       setState(() {
         loading = false;
       });
+      toastMessage("Berhasil daftar akun");
     }).onError((error, stackTrace) {
       setState(() {
         loading = false;
       });
+      toastMessage(error.toString());
     });
   }
 
@@ -89,6 +92,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return "Enter Password";
+                      } else if (value.length < 8) {
+                        return "Password must be at least 8 characters long";
+                      } else if (!RegExp(
+                              r'^(?=.*?[A-Za-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                          .hasMatch(value)) {
+                        return "Password must contain at least one letter, one number, and one symbol";
                       } else {
                         return null;
                       }

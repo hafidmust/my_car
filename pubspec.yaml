@@ -11,6 +11,7 @@ dependencies:
   firebase_core: ^2.15.0
   flutter:
     sdk: flutter
+  fluttertoast: ^8.2.2
   sqflite: ^2.2.8+4
 
 dev_dependencies:
